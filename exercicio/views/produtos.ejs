@@ -2,19 +2,19 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <title>Lista de Produtos</title>
+    <title>Gestão de Produtos</title>
   </head>
   <body>
-    <h1>Gestão de Produtos</h1>
+    <h1>Produtos</h1>
     <a href="/produtos/novo">Cadastrar Novo Produto</a>
     <hr />
-    <h2>Lista de Produtos</h2>
-    <table border="1">
+    <table border="1" width="100%">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nome</th>
           <th>Preço</th>
+          <th>Quantidade</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -24,17 +24,24 @@
           <td><%= produto.id %></td>
           <td><%= produto.nome %></td>
           <td>
-            <%= produto.preco.toLocaleString('pt-BR', { style: 'currency',
-            currency: 'BRL' }) %>
+            <%= Number(produto.preco).toLocaleString('pt-BR', { style:
+            'currency', currency: 'BRL' }) %>
           </td>
+          <td><%= produto.quantidade %></td>
           <td>
-            <a href="/produtos/detalhe/<%= produto.id %>">Ver Detalhes</a>
+            <a href="/produtos/editar/<%= produto.id %>">Editar</a>
+            <form
+              action="/produtos/deletar/<%= produto.id %>"
+              method="POST"
+              style="display: inline"
+              onsubmit="return confirm('Tem certeza?');"
+            >
+              <button type="submit">Deletar</button>
+            </form>
           </td>
         </tr>
         <% }); %>
       </tbody>
     </table>
-    <br />
-    <a href="/">Voltar para Home</a>
   </body>
 </html>

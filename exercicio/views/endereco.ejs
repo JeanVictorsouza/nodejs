@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestão de Endereco</title>
+  </head>
+  <body>
+    <h1>Produtos</h1>
+    <a href="/endereco/novo">Cadastrar Novo Endereco</a>
+    <hr />
+    <table border="1" width="100%">
+      <thead>
+        <tr>
+          <th>Rua</th>
+          <th>Numero</th>
+          <th>Bairro</th>
+          <th>Cidade</th>
+          <th>Estado</th>
+          <th>CEP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% endereco.forEach(endereco => { %>
+        <tr>
+          <td><%= endereco.nome %></td>
+          <td><%= endereco.numero %></td>
+          <td><%= endereco.bairro %></td>
+          <td><%= endereco.cidade %></td>
+          <td><%= endereco.estado %></td>
+          <td><%= endereco.cep %></td>
+          <td>
+            <a href="/endereco/editar/<%= endereco.nome %>">Editar</a>
+            <form
+              action="/endereco/deletar/<%= endereco.id %>"
+              method="POST"
+              style="display: inline"
+              onsubmit="return confirm('Tem certeza?');"
+            >
+              <button type="submit">Deletar</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>

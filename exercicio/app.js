@@ -1,26 +1,36 @@
 require("dotenv").config();
 const express = require("express");
+const sequelize = require("./db");
+
+// Importar Models e Rotas
+const Produto = require("./models/Produto");
+const produtosRoutes = require("./routes/produtosRoutes");
+
 const app = express();
 const port = 3000;
 
-// Importa as rotas
-const produtosRoutes = require("./rotas/produtosRoutes");
-const clienteRoutes = require("./rotas/clientesRoutes");
-
-// Configura o EJS como view engine
+// Configurações do Express
 app.set("view engine", "ejs");
 app.set("views", "./views");
+app.use(express.urlencoded({ extended: true }));
 
-// Middlewares
-app.use(express.static("public")); // Serve arquivos da pasta 'public'
-app.use(express.urlencoded({ extended: true })); // Para ler dados de formulários
-
-// Monta as rotas
-app.use("/produtos", produtosRoutes);
-app.use("/cliente", clienteRoutes);
-
-// Rota principal (já servida automaticamente pelo express.static se houver um index.html)
-
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+// Rota principal redireciona para a lista de produtos
+app.get("/", (req, res) => {
+  res.redirect("/produtos");
 });
+
+// Monta as rotas de produtos
+app.use("/produtos", produtosRoutes);
+
+// Sincroniza o banco e inicia o servidor
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Tabelas sincronizadas com sucesso.");
+    app.listen(port, () => {
+      console.log(`Servidor rodando em http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Erro ao sincronizar as tabelas:", error);
+  });
