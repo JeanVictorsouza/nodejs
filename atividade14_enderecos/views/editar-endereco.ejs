@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Endereço</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 20px auto; }
+    form { display: grid; gap: 12px; }
+    label { display: grid; gap: 6px; }
+    input { padding: 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+    .row3 { display: grid; grid-template-columns: 1.5fr 0.5fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 10px; }
+    a.button, button { padding: 8px 12px; text-decoration: none; border: 1px solid #333; background: #f3f3f3; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Editar Endereço</h1>
+  <form method="POST" action="/enderecos/editar/<%= endereco.id %>">
+    <label>Rua
+      <input name="rua" required value="<%= endereco.rua %>">
+    </label>
+    <div class="row">
+      <label>Número
+        <input name="numero" value="<%= endereco.numero || '' %>">
+      </label>
+      <label>Bairro
+        <input name="bairro" required value="<%= endereco.bairro %>">
+      </label>
+    </div>
+    <div class="row3">
+      <label>Cidade
+        <input name="cidade" required value="<%= endereco.cidade %>">
+      </label>
+      <label>UF
+        <input name="estado" maxlength="2" required value="<%= endereco.estado %>">
+      </label>
+      <label>CEP
+        <input name="cep" required pattern="\d{5}-\d{3}" value="<%= endereco.cep %>">
+      </label>
+    </div>
+    <div class="actions">
+      <a class="button" href="/enderecos">Voltar</a>
+      <button type="submit">Salvar</button>
+    </div>
+  </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "atividade14-enderecos-sql",
+  "version": "1.0.0",
+  "description": "CRUD de Endereços (Atividade 14) usando Express, Sequelize, EJS e banco SQL (MySQL/Postgres)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "sequelize": "^6.37.3",
+    "mysql2": "^3.11.0",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

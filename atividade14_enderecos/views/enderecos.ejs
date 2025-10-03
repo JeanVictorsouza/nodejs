@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Endereços</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 20px auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid #ddd; }
+    a.button, button { padding: 6px 10px; text-decoration: none; border: 1px solid #333; background: #f3f3f3; border-radius: 6px; cursor: pointer; }
+    .actions { display: flex; gap: 8px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Endereços</h1>
+    <a class="button" href="/enderecos/novo">+ Novo endereço</a>
+  </header>
+
+  <% if (enderecos.length === 0) { %>
+    <p>Nenhum endereço cadastrado.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Rua</th>
+          <th>Número</th>
+          <th>Bairro</th>
+          <th>Cidade</th>
+          <th>UF</th>
+          <th>CEP</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% enderecos.forEach(e => { %>
+          <tr>
+            <td><%= e.id %></td>
+            <td><%= e.rua %></td>
+            <td><%= e.numero || '-' %></td>
+            <td><%= e.bairro %></td>
+            <td><%= e.cidade %></td>
+            <td><%= e.estado %></td>
+            <td><%= e.cep %></td>
+            <td class="actions">
+              <a class="button" href="/enderecos/editar/<%= e.id %>">Editar</a>
+              <form method="POST" action="/enderecos/deletar/<%= e.id %>" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                <button type="submit">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>
